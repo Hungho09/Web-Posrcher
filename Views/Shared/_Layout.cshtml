@@ -1,0 +1,303 @@
+@using TH3.Extensions
+@using TH3.Models
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Porsche Official</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --porsche-red: #d5001c;
+            --porsche-black: #1c1c1c;
+            --porsche-gray: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fff;
+            color: var(--porsche-black);
+            overflow-x: hidden;
+        }
+
+        /* Premium Navbar */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0);
+            padding: 1.5rem 3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid transparent;
+            z-index: 1000;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 3rem;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 0.4rem;
+            color: var(--porsche-black) !important;
+            transition: color 0.3s;
+        }
+
+        .navbar.dark .navbar-brand, .navbar.dark .nav-link {
+            color: #fff !important;
+        }
+
+        .navbar.scrolled .navbar-brand, .navbar.scrolled .nav-link {
+            color: var(--porsche-black) !important;
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15rem;
+            text-transform: uppercase;
+            margin: 0 20px;
+            position: relative;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .nav-link:hover {
+            opacity: 1;
+            color: var(--porsche-red) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--porsche-red);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero & Content Layout */
+        .main-wrapper {
+            margin-top: 0;
+        }
+
+        /* Buttons Custom */
+        .btn-porsche {
+            background-color: var(--porsche-black);
+            color: #fff;
+            border-radius: 0;
+            padding: 12px 35px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1rem;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-porsche:hover {
+            background-color: var(--porsche-red);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(213, 0, 28, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--porsche-black);
+            color: #fff;
+            padding: 80px 0 40px;
+            margin-top: 0;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            letter-spacing: 0.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links h5 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .copyright-bar {
+            border-top: 1px solid #333;
+            margin-top: 50px;
+            padding-top: 30px;
+            font-size: 0.75rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="mainNav" class="navbar navbar-expand-lg fixed-top dark">
+            <div class="container-fluid px-lg-5">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PORSCHE</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @await Component.InvokeAsync("CategoryMenu")
+                        <li class="nav-item">
+                            @{
+                                var cart = Context.Session.GetObjectFromJson<List<CartItem>>("Cart");
+                                var cartCount = cart != null ? cart.Sum(c => c.Quantity) : 0;
+                            }
+                            <a class="nav-link" asp-controller="ShoppingCart" asp-action="Index">
+                                Shop <span class="badge bg-danger rounded-pill">@cartCount</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Experience</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                                    @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="/Identity/Account/Manage">Profile</a></li>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Product" asp-action="Index">Product Management</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Order" asp-action="Index">Order Management</a></li>
+                                    }
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin Panel</a></li>
+                                    }
+                                    @if (User.IsInRole("Customer"))
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Order" asp-action="MyOrders">My Orders</a></li>
+                                    }
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Identity/Account/Login">Sign In</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-wrapper">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <div class="footer-logo">PORSCHE</div>
+                    <p class="text-muted small">© 2026 Dr. Ing. h.c. F. Porsche AG. Legal notice. Privacy Policy. Cookie Policy. Consumption/Emissions. Open Source Software Notice. Multi-Material-Reparatur-Konzept.</p>
+                </div>
+                <div class="col-6 col-md-2 mb-4 footer-links">
+                    <h5>Models</h5>
+                    <ul>
+                        <li><a href="#">718</a></li>
+                        <li><a href="#">911</a></li>
+                        <li><a href="#">Taycan</a></li>
+                        <li><a href="#">Panamera</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-4 footer-links">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="#">Service & Accessories</a></li>
+                        <li><a href="#">Porsche Financial Services</a></li>
+                        <li><a href="#">Porsche Classic</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-4 footer-links">
+                    <h5>Experience</h5>
+                    <ul>
+                        <li><a href="#">Porsche Experience</a></li>
+                        <li><a href="#">Porsche Golf</a></li>
+                        <li><a href="#">Porsche Club</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-4 footer-links">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="#">Jobs and Careers</a></li>
+                        <li><a href="#">Porsche Museum</a></li>
+                        <li><a href="#">Environment</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright-bar text-center">
+                <p>Designed for Porsche Project - Sy Manh Hung. This is a demonstration site.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 50) {
+                $('#mainNav').addClass('scrolled').removeClass('dark');
+            } else {
+                $('#mainNav').removeClass('scrolled').addClass('dark');
+            }
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,13 @@
+@model int
+
+<div class="container my-5 py-5 text-center text-white">
+    <div class="bg-dark p-5 rounded-0 border border-success shadow-lg d-inline-block">
+        <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+        <h1 class="text-uppercase mt-4 mb-3">Order Confirmed</h1>
+        <p class="fs-5 mb-4 text-muted">Thank you for your purchase. Your order #<strong>@Model</strong> has been received.</p>
+        <p class="mb-5">Tailor-made for individuals who demand more. Our team is now preparing your request.</p>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-light btn-lg rounded-0 px-5 text-uppercase">Continue Discovery</a>
+    </div>
+</div>
+
+<style> body { background-color: #000; } </style>

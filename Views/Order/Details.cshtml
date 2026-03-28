@@ -1,0 +1,113 @@
+@model TH3.Models.Order
+@{
+    ViewData["Title"] = "Order Details #" + Model.Id;
+}
+
+<style>
+    .order-details-container {
+        padding: 151px 0 100px;
+    }
+    .order-card {
+        border-radius: 0;
+        border: 1px solid #eee;
+        padding: 40px;
+        background: #fff;
+    }
+    .order-section-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    .detail-label {
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        color: #888;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .detail-value {
+        font-weight: 500;
+        margin-bottom: 20px;
+        color: #1c1c1c;
+    }
+</style>
+
+<div class="container order-details-container">
+    <div class="order-card shadow-sm">
+        <div class="row mb-5">
+            <div class="col-md-6 border-end">
+                <h3 class="order-section-title">Customer Information</h3>
+                <div>
+                    <span class="detail-label">Customer Email</span>
+                    <p class="detail-value">@Model.User?.Email</p>
+                </div>
+                <div>
+                    <span class="detail-label">Full Name / Account</span>
+                    <p class="detail-value">@Model.User?.UserName</p>
+                </div>
+                <div>
+                    <span class="detail-label">Shipping Address</span>
+                    <p class="detail-value">@Model.ShippingAddress</p>
+                </div>
+                <div>
+                    <span class="detail-label">Order Date</span>
+                    <p class="detail-value">@Model.OrderDate.ToString("F")</p>
+                </div>
+            </div>
+            <div class="col-md-6 ps-md-5">
+                <h3 class="order-section-title">Order Status</h3>
+                <div>
+                    <span class="detail-label">Status</span>
+                    <p class="detail-value fw-black text-danger">CONFIRMED</p>
+                </div>
+                <div>
+                    <span class="detail-label">Notes from Customer</span>
+                    <p class="detail-value">@(string.IsNullOrEmpty(Model.Notes) ? "No notes" : Model.Notes)</p>
+                </div>
+                <div>
+                    <span class="detail-label">Total Amount Paid</span>
+                    <h2 class="fw-black text-danger">@Model.TotalPrice.ToString("C0")</h2>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="order-section-title">Purchased Items</h3>
+        <table class="table table-hover">
+            <thead class="text-uppercase small">
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th class="text-end">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderDetails)
+                {
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                @if (!string.IsNullOrEmpty(item.Product?.ImageUrl))
+                                {
+                                    <img src="@item.Product.ImageUrl" width="100" class="me-3 border" />
+                                }
+                                <div class="fw-bold">@item.Product?.Name</div>
+                            </div>
+                        </td>
+                        <td class="align-middle">@item.Price.ToString("C0")</td>
+                        <td class="align-middle">@item.Quantity</td>
+                        <td class="align-middle text-end fw-bold">@((item.Price * item.Quantity).ToString("C0"))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="d-grid mt-5">
+            <a asp-action="Index" class="btn btn-outline-dark rounded-0 text-uppercase fw-bold py-3">Back to Order List</a>
+        </div>
+    </div>
+</div>

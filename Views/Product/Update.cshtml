@@ -1,0 +1,82 @@
+@model TH3.Models.Product
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Update " + Model.Name;
+}
+
+<style>
+    .admin-form-container {
+        max-width: 600px;
+        margin: 151px auto 100px;
+        padding: 40px;
+        background: #fff;
+        border: 1px solid #eee;
+    }
+    .form-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.2rem;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .form-control {
+        border-radius: 0;
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
+    .form-label {
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        margin-bottom: 8px;
+    }
+    .preview-img {
+        width: 100%;
+        max-height: 200px;
+        object-fit: cover;
+        margin-top: 10px;
+        border: 1px solid #eee;
+    }
+</style>
+
+<div class="container">
+    <div class="admin-form-container">
+        <h2 class="form-title">Update Model</h2>
+        <form asp-action="Update" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-4">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Price" class="form-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger small"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger small"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="CategoryId" class="form-label">Category</label>
+                <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control"></select>
+            </div>
+            <div class="mb-4">
+                <label asp-for="ImageUrl" class="form-label">Update Image</label>
+                <input type="file" name="imageUrl" class="form-control" />
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Current Image" class="preview-img" />
+                    <p class="small text-muted mt-1 text-center">Current image</p>
+                }
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-porsche">Confirm Changes</button>
+                <a asp-action="Index" class="btn btn-link text-dark text-decoration-none small text-center">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

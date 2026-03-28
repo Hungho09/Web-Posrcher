@@ -1,0 +1,217 @@
+@{
+    ViewData["Title"] = "Porsche - Dr. Ing. h.c. F. Porsche AG";
+}
+
+<style>
+    .hero-section {
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/images/taycan-hero.png');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 100px;
+        color: #fff;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        margin-left: 5%;
+    }
+
+    .hero-content h1 {
+        font-size: 5rem;
+        font-weight: 900;
+        letter-spacing: -0.1rem;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        line-height: 0.9;
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-content p {
+        font-size: 1.25rem;
+        font-weight: 300;
+        margin-bottom: 2rem;
+        animation: fadeInUp 1.2s ease-out;
+    }
+
+    @@keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.2rem;
+        margin-bottom: 3rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background-color: var(--porsche-red);
+    }
+
+    .model-card {
+        border: none;
+        border-radius: 0;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        background: #fff;
+        margin-bottom: 30px;
+        cursor: pointer;
+    }
+
+    .model-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.1);
+    }
+
+    .model-card .card-img-top {
+        transition: transform 0.8s;
+    }
+
+    .model-card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+
+    .model-card .card-body {
+        padding: 2rem 0;
+    }
+
+    .model-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .model-price {
+        color: #666;
+        font-weight: 400;
+    }
+
+    .experience-box {
+        background-color: #000;
+        color: #fff;
+        padding: 100px 0;
+    }
+
+    .exp-img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+    }
+</style>
+
+<div class="hero-section">
+    <div class="hero-content">
+        <p>Taycan Turbo S</p>
+        <h1>Soul, electrified.</h1>
+        <a href="/Product" class="btn btn-porsche px-5 py-3">Explore All Models</a>
+    </div>
+</div>
+
+<section class="container my-5 py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="section-title">Models</h2>
+            <p class="text-muted lead mb-5">From legendary sport cars to luxury sedans and versatile SUVs.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- 911 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card model-card text-start">
+                <img src="/images/911-gt3.png" class="card-img-top" alt="Porsche 911">
+                <div class="card-body">
+                    <h5 class="model-name">911</h5>
+                    <p class="model-price">From $114,400</p>
+                    <a href="/Product" class="btn btn-outline-dark btn-sm px-4">Build Your Own</a>
+                </div>
+            </div>
+        </div>
+        <!-- Taycan -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card model-card text-start">
+                <img src="/images/taycan-hero.png" class="card-img-top" alt="Porsche Taycan">
+                <div class="card-body">
+                    <h5 class="model-name">Taycan</h5>
+                    <p class="model-price">From $90,900</p>
+                    <a href="/Product" class="btn btn-outline-dark btn-sm px-4">Explore More</a>
+                </div>
+            </div>
+        </div>
+        <!-- 718 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card model-card text-start">
+                <img src="/images/porsche-718-boxster-model.png" class="card-img-top" alt="Porsche 718">
+                <div class="card-body">
+                    <h5 class="model-name">718</h5>
+                    <p class="model-price">From $68,300</p>
+                    <a href="/Product" class="btn btn-outline-dark btn-sm px-4">Discover</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="experience-box mb-0">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 pe-lg-5 mb-5 mb-lg-0">
+                <h2 class="section-title text-white">The Porsche Experience</h2>
+                <p class="lead text-white-50 mt-4 mb-4">Driving a Porsche is more than just transportation. It's a statement of performance, design, and history. Join the community of enthusiasts and experience the adrenaline.</p>
+                <div class="d-flex gap-3">
+                    <button class="btn btn-light btn-porsche text-dark">Join events</button>
+                    <button class="btn btn-outline-light btn-porsche">Find a dealer</button>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="/images/911-gt3.png" class="exp-img rounded-0 shadow-lg" alt="Porsche Experience">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5 my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h2 class="section-title">Latest from Porsche</h2>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="position-relative overflow-hidden" style="height: 300px;">
+                <img src="/images/taycan-hero.png" class="w-100 h-100 object-fit-cover transition-scale" style="transition: transform .5s;">
+                <div class="position-absolute bottom-0 start-0 p-4 text-white w-100" style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
+                    <h6 class="fw-bold m-0">Heritage Design</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="position-relative overflow-hidden" style="height: 300px;">
+                <img src="/images/911-gt3.png" class="w-100 h-100 object-fit-cover">
+                <div class="position-absolute bottom-0 start-0 p-4 text-white w-100" style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
+                    <h6 class="fw-bold m-0">GT Racing</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="position-relative overflow-hidden" style="height: 300px;">
+                <img src="/images/porsche-718-boxster-model.png" class="w-100 h-100 object-fit-cover">
+                <div class="position-absolute bottom-0 start-0 p-4 text-white w-100" style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
+                    <h6 class="fw-bold m-0">Sustainability</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

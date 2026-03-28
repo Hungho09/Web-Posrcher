@@ -1,0 +1,30 @@
+@model TH3.Models.Order
+
+<div class="container my-5 pt-5 text-white">
+    <div class="row justify-content-center">
+        <div class="col-md-6 bg-dark p-5 rounded-0 border border-secondary shadow-lg">
+            <h1 class="text-uppercase mb-4 text-center">Checkout</h1>
+            <form asp-action="Checkout" method="post">
+                <div class="mb-4">
+                    <label asp-for="ShippingAddress" class="form-label text-uppercase small fw-bold">Shipping Address</label>
+                    <input asp-for="ShippingAddress" class="form-control bg-dark text-white border-secondary rounded-0" placeholder="Enter your full address" required />
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Notes" class="form-label text-uppercase small fw-bold">Order Notes (Optional)</label>
+                    <textarea asp-for="Notes" class="form-control bg-dark text-white border-secondary rounded-0" rows="3" placeholder="Notes about your order..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-danger btn-lg w-100 rounded-0 py-3 text-uppercase fw-bold">Place Order</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    body { background-color: #000; }
+    .form-control:focus {
+        background-color: #1a1a1a;
+        color: #fff;
+        border-color: #d5001c;
+        box-shadow: none;
+    }
+</style>

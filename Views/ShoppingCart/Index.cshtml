@@ -1,0 +1,74 @@
+@model List<TH3.Models.CartItem>
+
+<div class="container my-5 pt-5">
+    <h1 class="text-uppercase mb-4">Shopping Cart</h1>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-hover text-white">
+                <thead class="bg-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="@item.ImageUrl" alt="@item.Name" style="width: 100px; height: auto;" class="me-3 img-thumbnail bg-dark border-secondary">
+                                    <span>@item.Name</span>
+                                </div>
+                            </td>
+                            <td>$@item.Price.ToString("N2")</td>
+                            <td>@item.Quantity</td>
+                            <td>$@((item.Price * item.Quantity).ToString("N2"))</td>
+                            <td>
+                                <a asp-action="RemoveFromCart" asp-route-productId="@item.ProductId" class="btn btn-outline-danger btn-sm">Remove</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end fw-bold">Grand Total:</td>
+                        <td class="fw-bold fs-5">$@Model.Sum(x => x.Price * x.Quantity).ToString("N2")</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-outline-light">Continue Shopping</a>
+            <a asp-action="Checkout" class="btn btn-danger btn-lg px-5">Proceed to Checkout</a>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <p class="fs-4 text-muted mb-4">Your cart is empty.</p>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-danger btn-lg">Shop Now</a>
+        </div>
+    }
+</div>
+
+<style>
+    body {
+        background-color: #000;
+        color: #fff;
+    }
+    .table-hover tbody tr:hover {
+        background-color: #222;
+        color: #fff;
+    }
+    .table td { border-bottom: 1px solid #333; }
+    .table thead th { border-bottom: 2px solid #555; border-top: none; }
+    .img-thumbnail { border-radius: 0; }
+</style>

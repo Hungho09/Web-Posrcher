@@ -1,0 +1,159 @@
+@model IEnumerable<TH3.Models.Product>
+
+@{
+    ViewData["Title"] = "Porsche Models Portfolio";
+}
+
+<style>
+    .page-header {
+        padding: 151px 0 80px;
+        background-color: #f8f9fa;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .page-header h1 {
+        font-weight: 900;
+        letter-spacing: 0.3rem;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 40px;
+        padding: 20px 0;
+    }
+
+    .car-card {
+        border: none;
+        border-radius: 0;
+        transition: transform 0.4s ease;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        background: #fff;
+    }
+
+    .car-card:hover {
+        transform: translateY(-8px);
+        color: inherit;
+    }
+
+    .car-img-wrapper {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 16/9;
+        background-color: #f0f0f0;
+    }
+
+    .car-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .car-card:hover .car-img-wrapper img {
+        transform: scale(1.05);
+    }
+
+    .car-info {
+        padding: 1.5rem 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .car-title {
+        font-weight: 700;
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .car-category {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        color: #888;
+        margin-bottom: 1rem;
+    }
+
+    .car-price {
+        font-weight: 400;
+        color: #1c1c1c;
+    }
+
+    .admin-actions {
+        margin-top: 1rem;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-admin {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        padding: 5px 15px;
+        border-radius: 0;
+    }
+</style>
+
+<header class="page-header">
+    <div class="container">
+        <h1>@(ViewBag.CategoryName ?? "All Porsche Models")</h1>
+        <p class="text-muted">@(ViewBag.CategoryName != null ? $"Discover our {ViewBag.CategoryName} lineup." : "Precision engineering for those who dream.")</p>
+        @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Employee")))
+        {
+            <a asp-action="Add" class="btn btn-porsche mt-4">Add New Car</a>
+        }
+    </div>
+</header>
+
+<div class="container mb-5">
+    <div class="product-grid">
+        @foreach (var product in Model)
+        {
+            <div class="car-card">
+                <a asp-action="Display" asp-route-id="@product.Id" class="text-decoration-none color-inherit">
+                    <div class="car-img-wrapper">
+                        @if (!string.IsNullOrEmpty(product.ImageUrl))
+                        {
+                            <img src="@product.ImageUrl" alt="@product.Name">
+                        }
+                        else
+                        {
+                            <img src="/images/911-gt3.png" alt="Placeholder">
+                        }
+                    </div>
+                </a>
+                <div class="car-info">
+                    <div class="car-title">
+                        <span>@product.Name</span>
+                        <span class="car-price">@product.Price.ToString("C0")</span>
+                    </div>
+                    <div class="car-category">@product.Category?.Name</div>
+                    <p class="text-muted small">@product.Description</p>
+                    
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Employee")))
+                    {
+                        <div class="admin-actions mb-2">
+                            <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-outline-dark btn-admin">Edit</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-outline-danger btn-admin">Delete</a>
+                            }
+                        </div>
+                    }
+                    
+                    <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post">
+                        <input type="hidden" name="productId" value="@product.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm w-100 rounded-0 text-uppercase fw-bold">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>

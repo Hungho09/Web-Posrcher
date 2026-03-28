@@ -1,0 +1,19 @@
+@model IEnumerable<TH3.Models.Category>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Models
+    </a>
+    <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="categoryDropdown" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(5px);">
+        <li>
+            <a class="dropdown-item text-uppercase small fw-bold py-2" asp-controller="Product" asp-action="Index" asp-route-categoryId="">All Models</a>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        @foreach (var category in Model)
+        {
+            <li>
+                <a class="dropdown-item text-uppercase small fw-bold py-2" asp-controller="Product" asp-action="Index" asp-route-categoryId="@category.Id">@category.Name</a>
+            </li>
+        }
+    </ul>
+</li>

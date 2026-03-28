@@ -1,0 +1,36 @@
+@model TH3.Models.Product
+@{
+    ViewData["Title"] = "Remove " + Model.Name;
+}
+
+<style>
+    .admin-form-container {
+        max-width: 500px;
+        margin: 151px auto 100px;
+        padding: 40px;
+        background: #fff;
+        border: 1px solid #eee;
+        text-align: center;
+    }
+    .form-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.2rem;
+        margin-bottom: 30px;
+    }
+</style>
+
+<div class="container">
+    <div class="admin-form-container">
+        <h2 class="form-title">Delete car</h2>
+        <p class="mb-4">Are you sure you want to permanently remove <strong>@Model.Name</strong> from the showroom?</p>
+        
+        <form asp-action="DeleteConfirmed" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger btn-porsche py-3">Confirm Deletion</button>
+                <a asp-action="Index" class="btn btn-link text-dark text-decoration-none small">Cancel and Return</a>
+            </div>
+        </form>
+    </div>
+</div>
