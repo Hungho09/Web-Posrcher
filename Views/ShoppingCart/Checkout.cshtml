@@ -6,8 +6,19 @@
             <h1 class="text-uppercase mb-4 text-center">Checkout</h1>
             <form asp-action="Checkout" method="post">
                 <div class="mb-4">
+                    <label asp-for="CustomerName" class="form-label text-uppercase small fw-bold">Full Name</label>
+                    <input asp-for="CustomerName" class="form-control bg-dark text-white border-secondary rounded-0" placeholder="Enter your full name" required />
+                    <span asp-validation-for="CustomerName" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="PhoneNumber" class="form-label text-uppercase small fw-bold">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control bg-dark text-white border-secondary rounded-0" placeholder="Enter your phone number" required />
+                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
                     <label asp-for="ShippingAddress" class="form-label text-uppercase small fw-bold">Shipping Address</label>
                     <input asp-for="ShippingAddress" class="form-control bg-dark text-white border-secondary rounded-0" placeholder="Enter your full address" required />
+                    <span asp-validation-for="ShippingAddress" class="text-danger small"></span>
                 </div>
                 <div class="mb-4">
                     <label asp-for="Notes" class="form-label text-uppercase small fw-bold">Order Notes (Optional)</label>

@@ -48,10 +48,16 @@
                 {
                     <tr>
                         <td class="fw-bold">#@order.Id</td>
-                        <td>@order.User?.Email</td>
+                        <td>
+                            <div class="fw-bold">@order.CustomerName</div>
+                            <div class="small text-muted">@order.PhoneNumber</div>
+                            <div class="small text-muted">@order.User?.Email</div>
+                        </td>
                         <td>@order.OrderDate.ToString("MMM dd, yyyy HH:mm")</td>
                         <td class="fw-bold text-danger">@order.TotalPrice.ToString("C0")</td>
-                        <td class="small">@order.ShippingAddress</td>
+                        <td>
+                            <div class="small">@order.ShippingAddress</div>
+                        </td>
                         <td>
                             <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-dark btn-sm rounded-0 text-uppercase fw-bold">View Details</a>
                         </td>

@@ -42,16 +42,20 @@
             <div class="col-md-6 border-end">
                 <h3 class="order-section-title">Customer Information</h3>
                 <div>
-                    <span class="detail-label">Customer Email</span>
-                    <p class="detail-value">@Model.User?.Email</p>
+                    <span class="detail-label">Full Name</span>
+                    <p class="detail-value fw-bold">@Model.CustomerName</p>
                 </div>
                 <div>
-                    <span class="detail-label">Full Name / Account</span>
-                    <p class="detail-value">@Model.User?.UserName</p>
+                    <span class="detail-label">Phone Number</span>
+                    <p class="detail-value fw-bold">@Model.PhoneNumber</p>
                 </div>
                 <div>
                     <span class="detail-label">Shipping Address</span>
                     <p class="detail-value">@Model.ShippingAddress</p>
+                </div>
+                <div>
+                    <span class="detail-label">Account / Email</span>
+                    <p class="detail-value small">@Model.User?.Email</p>
                 </div>
                 <div>
                     <span class="detail-label">Order Date</span>
